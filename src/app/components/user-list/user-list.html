@@ -1,0 +1,19 @@
+<div>
+    <h1>
+        Lista de Usuarios
+    </h1>
+    <form action="">
+        <button type="submit">Agregar Usuario</button>
+    </form>
+    <ul>
+        <!-- Iteraremos sobre el array de usuarios , que lo exportamos desde el archivo db.ts y por cada usuario crearemos un componente <user-card>
+            pasandole toda la infomracion de dicho usuario con [user] = "user"
+            -->
+        @for (user of usuarios; track user.id) { 
+            
+            <!-- en (eliminar), usaremos el metodo deleteUser() y recibiremos el valor que estamos emitiendo desde user-card como parametro, en este caso el id del usuario a eliminar -->
+             <!--  -->
+            <user-card [user] = "user" (eliminar) = "deleteUser($event)"></user-card> 
+        }
+    </ul>
+</div>
