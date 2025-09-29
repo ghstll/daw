@@ -1,16 +1,12 @@
-<li>
-    <article class="info-user">
-        <h3>{{user.id}}</h3>
-        <section class="informacion-personal">
-            <div>
-                <h3>{{user.name}}</h3>
-                <h3>{{user.age}} Años</h3>
-            </div>
-            <h3>       {{user.email}}</h3>
-        </section>
-        <section class="operaciones">
-            <button class="editar">Editar</button>
-            <button class="eliminar" (click) = "onDelete()">Eliminar</button>
-        </section>
-    </article>
-</li>
+<td>{{ usuario.id }}</td>
+<td>{{ usuario.nombre }}</td>
+<td>{{ usuario.edad }}</td>
+<td>{{ usuario.email }}</td>
+<td>
+    <button>
+        <app-edit-icon></app-edit-icon>
+    </button>
+    <button (click) = "onDelete()" >
+        <app-trash-icon></app-trash-icon>
+    </button>
+</td>

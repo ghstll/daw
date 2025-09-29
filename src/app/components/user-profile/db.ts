@@ -1,25 +1,12 @@
-
+export interface usuario  {
+  id : number,
+  nombre : string,
+  edad : number,
+  email : string
+}
 export class db {
-   usersList  : {id : number,name : string,age : number , email : string}[]= [
-      {
-        id : 1,
-        name : "Maria Dominguez",
-        age : 20,
-        email : "221249812@tecvalles.mx"
-      },
-      {
-        id : 2,
-        name : "Ignacio Perez",
-        age : 20,
-        email : "1823717@tecvalles.mx"
-      },
-      {
-        id : 3,
-        name : "Rodrigo Sanchez",
-        age : 22,
-        email : "1237712@tecvalles.mx"
-      },
-    ]
+    idCount = 1
+    usersList  : usuario[] = [{id : 1,nombre : "Braulio Perez Compean" , edad : 20,email : "22690128@tecvalles.mx"}]
     count(){
         return this.usersList.length;
     }
@@ -34,7 +21,9 @@ export class db {
       }
       console.log(this.usersList)
     }
-    agregar(user : {id : number,name : string,age : number , email : string}){
-      
+    agregar(user : usuario){
+      user.id = this.idCount
+      this.usersList.push(user)
+      this.idCount++;
     }
 }
