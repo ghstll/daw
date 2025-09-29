@@ -1,0 +1,129 @@
+/* General layout */
+body, .user-profile {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.user-profile {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 24px;
+  margin: 24px auto;
+  max-width: 500px;
+}
+
+h2, h3 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e1e1e1;
+  margin: 24px 0;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+form input {
+  flex: 1 1 120px;
+  padding: 8px;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+form button {
+  padding: 8px 16px;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+form button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+form button[type="button"] {
+  background: #e74c3c;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: #f1f1f1;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s;
+}
+
+li:hover {
+  background: #eaf6fb;
+}
+
+li input[type="checkbox"] {
+  accent-color: #3498db;
+  width: 18px;
+  height: 18px;
+}
+
+li button {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.95em;
+  margin-left: auto;
+  transition: background 0.2s;
+}
+
+li button:hover {
+  background: #c0392b;
+}
+
+span {
+  flex: 1;
+}
+
+div[ngIf] {
+  margin-top: 10px;
+  background: #f9f9f9;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #34495e;
+  font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  .user-profile {
+    padding: 12px;
+    max-width: 98vw;
+  }
+  form input {
+    flex: 1 1 80px;
+    font-size: 0.95em;
+  }
+}

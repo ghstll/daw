@@ -1,29 +1,32 @@
-export interface usuario  {
+export interface user  {
   id : number,
-  nombre : string,
-  edad : number,
+  name : string,
+  age : number,
   email : string
 }
 export class db {
     idCount = 1
-    usersList  : usuario[] = [{id : 1,nombre : "Braulio Perez Compean" , edad : 20,email : "22690128@tecvalles.mx"}]
+    usersList  : user[] = []
     count(){
-        return this.usersList.length;
+        return this.usersList.length; 
     }
     getAll(){
         return this.usersList
     }
-    delete(id : number){ //Metodo que eliminara un usuario por su id, como parametro recibe un number (id)
-      const index = this.usersList.findIndex(user => user.id === id) //El metodo findIndex nos regresara el indice del primer elemento en un Array
-                                                                      //que cumpla con la condicion establecida, en este caso que user.id === id
-      if(index !== -1){
-        this.usersList.splice(index,1) // SI nuestra variable index NO es -1,con el metodo splice() removeremos ese usuario de nuestro Array
+    delete(id : number){
+      const index = this.usersList.findIndex(user => user.id === id) //Se usa un findIndex() para encontrar el indice del primer elemento que coincida con la condicion user.id === id
+      if(index !== -1){                //En caso de que no se haya encontrado ningun elemento que coincida, el valor de index valdra -1, cosa que tenemos que confirmar en este If       
+                                      //Si el valor no es -1 , usaremos el splice() para borrar el elemento                                           
+        this.usersList.splice(index,1) 
       }
       console.log(this.usersList)
     }
-    agregar(user : usuario){
-      user.id = this.idCount
+    addUser(user : user){
+      user.id = this.idCount //Hacemos referencia a el contador de ID (idCount) que esta en db.ts para llevar un incremento automatico del ID
       this.usersList.push(user)
       this.idCount++;
+    }
+    update(user : user){
+      
     }
 }

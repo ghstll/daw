@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserCard } from '../user-card/user-card';
-import { db, usuario } from '../user-profile/db';
+import { db, user } from '../user-profile/db';
 @Component({
   standalone : true,
   selector: 'user-list',
@@ -12,35 +12,40 @@ import { db, usuario } from '../user-profile/db';
 })
 export class UserList {
   db = new db();
-  usuarios: usuario[] = this.db.getAll();
-  usuarioForm = new FormGroup({
+  users: user[] = this.db.getAll();
+  userForm = new FormGroup({ 
     id : new FormControl(0),
-    nombre : new FormControl("",[Validators.required]),
-    edad : new FormControl(0 , [Validators.max(100)]),
-    email : new FormControl("")
+    name : new FormControl("",[Validators.required]),
+    age : new FormControl(0 , [Validators.required,Validators.max(100)]),
+    email : new FormControl("",[Validators.required,Validators.email]) // Si alguno de las validaciones no se cumple ,usuarioForm.invalid sera true
   })
-  nuevoUsuario: usuario = {
-    id: 0,
-    nombre: '',
-    edad: 0,
-    email: '',
-  };
   deleteUser(id: number) {
     //Este metodo nos ayuda a utilizar el metodo delete() que se encuentra en la clase db del archivo db.ts
     this.db.delete(id);
-    this.usuarios = this.db.getAll(); //una vez que borramos el usuario usando su id, actualizamos el array de usuarios llamando nuevamente el metodo getAll()
+    this.users = this.db.getAll(); //una vez que borramos el usuario usando su id, actualizamos el array de usuarios llamando nuevamente el metodo getAll()
+  }
+  updateUser(user : user){
+    this.db.update(user)
+  }
+  loadFields(user : user){
+    this.userForm.patchValue({
+      id : user.id,
+      name : user.name,
+      email : user.email,
+      age : user.age 
+    })
   }
   createUser() {
-    if(this.usuarioForm.invalid){
+    if(this.userForm.invalid){
       return
     }
-    const nuevoUsuario = this.usuarioForm.value as usuario
-    this.db.agregar(nuevoUsuario);
-    this.usuarios = this.db.getAll();
-    this.usuarioForm.reset({ id: 0, nombre: '', edad: 0, email: '' });
+    const newUser = this.userForm.value as user
+    this.db.addUser(newUser);
+    this.users = this.db.getAll();
+    this.userForm.reset({ id: 0, name: '', age: 0, email: '' });
     
   }
   get nombre(){
-    return this.usuarioForm.get("nombre")
+    return this.userForm.get("nombre")
   }
 }

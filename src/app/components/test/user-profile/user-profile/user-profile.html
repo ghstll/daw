@@ -1,0 +1,94 @@
+<div class="user-profile">
+  <ul style="padding:0; list-style:none; max-width:500px; margin:auto;">
+    <li style="background:#f1f1f1; margin-bottom:16px; border-radius:8px; padding:16px;">
+      <input type="radio" name="crudOption" id="crear" [(ngModel)]="crudSeleccionado" value="crear" style="accent-color:#27ae60; margin-right:8px;" />
+      <label for="crear"><strong>Crear nuevo usuario</strong></label>
+      <div *ngIf="crudSeleccionado === 'crear'" style="margin-top:10px;">
+        <form (ngSubmit)="crearUsuario()" #formCrear="ngForm" style="display:flex; gap:10px; flex-wrap:wrap;">
+          <input type="text" placeholder="Nombre" [(ngModel)]="nuevoUsuario.name" name="nuevoName" required />
+          <input type="text" placeholder="Edad" [(ngModel)]="nuevoUsuario.age" name="nuevoAge" required />
+          <input type="email" placeholder="Email" [(ngModel)]="nuevoUsuario.email" name="nuevoEmail" required />
+          <button type="submit" [disabled]="formCrear.invalid">Crear</button>
+        </form>
+      </div>
+    </li>
+
+    <li style="background:#f1f1f1; margin-bottom:16px; border-radius:8px; padding:16px;">
+      <input type="radio" name="crudOption" id="ver" [(ngModel)]="crudSeleccionado" value="ver" style="accent-color:#2980b9; margin-right:8px;" />
+      <label for="ver"><strong>Ver usuarios</strong></label>
+      <div *ngIf="crudSeleccionado === 'ver'" style="margin-top:10px;">
+        <button [disabled]="!masde1" (click)="mostrar()" style="margin-bottom:10px;">Ver Lista</button>
+        <ul *ngIf="usuarios.length > 0">
+          <li *ngFor="let usuario of usuarios" style="background:#fff; margin-bottom:8px; border-radius:6px; padding:10px; display:flex; align-items:center; gap:12px;">
+            <span>
+              <strong>{{ usuario.name }}</strong> - {{ usuario.age }} años - {{ usuario.email }}
+            </span>
+            <button (click)="borrarUsuario(usuario.id)">Borrar</button>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li style="background:#f1f1f1; margin-bottom:16px; border-radius:8px; padding:16px;">
+      <input type="radio" name="crudOption" id="verId" [(ngModel)]="crudSeleccionado" value="verId" style="accent-color:#8e44ad; margin-right:8px;" />
+      <label for="verId"><strong>Ver usuario por ID</strong></label>
+      <div *ngIf="crudSeleccionado === 'verId'" style="margin-top:10px;">
+        <form (ngSubmit)="buscarPorId()" #formBuscar="ngForm" style="display:flex; gap:10px;">
+          <input type="number" [(ngModel)]="selectedId" name="buscarId" placeholder="ID" required />
+          <button type="submit" [disabled]="formBuscar.invalid">Buscar</button>
+          <button type="button" (click)="usuarioBuscado = null; selectedId = null;">Limpiar</button>
+        </form>
+        <div *ngIf="usuarioBuscado" style="margin-top:10px;">
+          <p><strong>{{ usuarioBuscado.name }}</strong> - {{ usuarioBuscado.age }} años - {{ usuarioBuscado.email }}</p>
+        </div>
+      </div>
+    </li>
+
+    <li style="background:#f1f1f1; margin-bottom:16px; border-radius:8px; padding:16px;">
+      <input type="radio" name="crudOption" id="actualizar" [(ngModel)]="crudSeleccionado" value="actualizar" (change)="onCrudChange()" style="accent-color:#f39c12; margin-right:8px;" />
+      <label for="actualizar"><strong>Actualizar usuario</strong></label>
+      <div *ngIf="crudSeleccionado === 'actualizar'" style="margin-top:10px;">
+        <ul *ngIf="usuarios.length > 0">
+          <li *ngFor="let usuario of usuarios" style="background:#fff; margin-bottom:8px; border-radius:6px; padding:10px; display:flex; align-items:center; gap:12px;">
+            <input type="radio" name="usuarioEditar" [value]="usuario.id" [(ngModel)]="editarUsuario.id" style="accent-color:#f39c12;" />
+            <span>
+              <strong>{{ usuario.name }}</strong> - {{ usuario.age }} años - {{ usuario.email }}
+            </span>
+          </li>
+        </ul>
+        <div *ngIf="editarUsuario.id" style="margin-top:10px;">
+          <form (ngSubmit)="actualizarUsuario()" #formEditar="ngForm" style="display:flex; gap:10px; flex-wrap:wrap;">
+            <input type="number" [(ngModel)]="editarUsuario.id" name="editId" readonly />
+            <input type="text" [(ngModel)]="editarUsuario.name" name="editName" required />
+            <input type="text" [(ngModel)]="editarUsuario.age" name="editAge" required />
+            <input type="email" [(ngModel)]="editarUsuario.email" name="editEmail" required />
+            <button type="submit" [disabled]="formEditar.invalid">Actualizar</button>
+            <button type="button" (click)="editarUsuario = { id: 0, name: '', age: '', email: '' }">Cancelar</button>
+          </form>
+        </div>
+        <div *ngIf="!editarUsuario.id" style="margin-top:10px; color:#888;">
+          <em>Selecciona un usuario para editar.</em>
+        </div>
+      </div>
+    </li>
+
+    <li style="background:#f1f1f1; border-radius:8px; padding:16px;">
+      <input type="radio" name="crudOption" id="borrar" [(ngModel)]="crudSeleccionado" value="borrar" style="accent-color:#e74c3c; margin-right:8px;" />
+      <label for="borrar"><strong>Borrar usuario</strong></label>
+      <div *ngIf="crudSeleccionado === 'borrar'" style="margin-top:10px;">
+        <ul *ngIf="usuarios.length > 0">
+          <li *ngFor="let usuario of usuarios" style="background:#fff; margin-bottom:8px; border-radius:6px; padding:10px; display:flex; align-items:center; gap:12px;">
+            <input type="radio" name="usuarioBorrar" [value]="usuario.id" [(ngModel)]="usuarioBorrarId" style="accent-color:#e74c3c;" />
+            <span>
+              <strong>{{ usuario.name }}</strong> - {{ usuario.age }} años - {{ usuario.email }}
+            </span>
+          </li>
+        </ul>
+        <button *ngIf="usuarioBorrarId" (click)="borrarUsuario(usuarioBorrarId)" style="margin-top:10px;">Borrar usuario seleccionado</button>
+        <div *ngIf="!usuarioBorrarId" style="margin-top:10px; color:#888;">
+          <em>Selecciona un usuario para borrar.</em>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,23 +1,23 @@
 <article>
-	<header>
-		<h1>Lista de Usuarios</h1>
-		<form [formGroup] = "usuarioForm" (ngSubmit) = "createUser()">
-			<div>
-				<label>
-					Nombre
-					<input type="text" id="nombre" formControlName = "nombre" />
-				</label>
-				<label>
-					Edad
-					<input type="number" id="edad" formControlName = "edad"/>
-				</label>
-				<label>
-					Email
-					<input type="email" id="email" formControlName = "email"/>
-				</label>
-			</div>
-			<button type="submit">+ Añadir usuario</button>
-		</form>
+  <header>
+    <h1>Lista de Usuarios</h1>
+    <form [formGroup]="userForm" (ngSubmit)="createUser()">
+      <div>
+        <label>
+          Nombre
+          <input type="text" id="name" formControlName="name" />
+        </label>
+        <label>
+          Edad
+          <input type="number" id="age" formControlName="age" />
+        </label>
+        <label>
+          Email
+          <input type="email" id="email" formControlName="email" />
+        </label>
+      </div>
+      <button type="submit">+ Añadir usuario</button>
+    </form>
   </header>
   <table>
     <thead>
@@ -30,8 +30,12 @@
       </tr>
     </thead>
     <tbody>
-      @for(usuario of usuarios; track usuario.id){
-      <tr user-card [usuario]="usuario" (eliminar)="deleteUser($event)"></tr>
+      @for(user of users; track user.id){
+      <tr user-card [user]="user" (delete)="deleteUser($event)"></tr>
+      } @empty{
+      <tr>
+        <td colspan="5" style="text-align: center">No hay usuarios registrados</td>
+      </tr>
       }
     </tbody>
   </table>
