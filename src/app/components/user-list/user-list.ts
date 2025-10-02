@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { db, user } from '../../db/db';
 import { UserCard } from '../user-card/user-card';
-import { db, user } from '../user-profile/db';
 @Component({
   standalone : true,
   selector: 'user-list',
@@ -11,6 +11,8 @@ import { db, user } from '../user-profile/db';
   styleUrl: './user-list.css',
 })
 export class UserList {
+  formActive : boolean = false;
+  formUpdateUserActive : boolean = false
   db = new db();
   users: user[] = this.db.getAll();
   userForm = new FormGroup({ 
@@ -47,5 +49,8 @@ export class UserList {
   }
   get nombre(){
     return this.userForm.get("nombre")
+  }
+  handleBtnNewUser(){
+    this.formActive = !this.formActive
   }
 }

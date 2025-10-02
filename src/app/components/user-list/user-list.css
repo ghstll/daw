@@ -2,17 +2,21 @@ h1{
     margin: 0;
 }
 article{
-    background-color: rgb(244, 240, 240);
+    background-color: black;
     padding: 50px;
     border-radius: 10px;
-    min-width: 800px
-
+    width: fit-content;
+    margin-top: 150px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.338);
 }
 header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 50px;
+    flex-direction: column;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 button{
     margin: 0;
@@ -27,33 +31,25 @@ button{
 table{
     border-collapse: collapse;
     width: 100%;
-    background-color: rgb(196, 196, 196);
+    color: white;
 }
 th{
     text-align: left;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
     margin: 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
-
 tr{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
-tr:hover{
-    background-color: white;
-}
-
 form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
     
 }
 form input{
@@ -62,6 +58,15 @@ form input{
 }
 form div{
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 50px;
+    margin-top: 50px;
+}
+thead tr th{
+    color: gray;
+}
+.op-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }

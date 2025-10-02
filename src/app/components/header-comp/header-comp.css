@@ -1,0 +1,37 @@
+header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid white;
+    background-color: black;
+    position: relative;
+    z-index: 10000;
+}
+header div{
+    font-family: 'Courier New', Courier, monospace;
+}
+.title-container h1{
+    font-size: xx-large;
+    margin: 0;
+}
+ul{
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+ul li button{
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+ul li button:hover{
+    background-color: rgba(255, 255, 255, 0.099);
+
+}

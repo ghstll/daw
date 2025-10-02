@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { db, user } from '../../db/db';
 import { EditIcon } from '../icons/edit-icon/edit-icon';
 import { TrashIcon } from '../icons/trash-icon/trash-icon';
-import { db, user } from '../user-profile/db';
-
 @Component({
   selector: 'tr[user-card]',
   imports: [EditIcon,TrashIcon],
@@ -18,11 +17,11 @@ export class UserCard {
 
                                                   //EventEmitter es un objeto que permite emitir valores hacia user-list (padre), en este caso un number (id)
                                                   //ese valor lo recibe user-list en un $event
-  @Output() editar = new EventEmitter<number>()
+  @Output() update = new EventEmitter<[number,boolean]>()
   onDelete(){ //creamos el metodo onDelete que se activara en el evento click en los botones dentro de user-card,
     this.delete.emit(this.user.id) //
   }
   onUpdate(){
-    this.editar.emit(this.user.id)
+    this.update.emit([this.user.id,true])
   }
 }
